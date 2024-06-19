@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <!-- Font Awesome 6 Icon -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/utils/css/style.css" />
+    <link rel="stylesheet" href="./assets/utils/css/index.css" />
+
+    <title>Peduli Cegah Stunting</title>
+  </head>
+  <body>
+    <nav class="navbar-container" id="navbar-container">
+      <div class="navbar-content">
+        <div class="navbar-content-left">
+          <a href="index.html" class="navbar-logo">
+            <img src="./assets/images/logo/logo.png" alt="" class="logo-image" />
+          </a>
+        </div>
+        <div class="navbar-content-right">
+          <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="#" class="navbar-link active">Beranda</a>
+            </li>
+            <li class="navbar-item">
+              <a href="news.html" class="navbar-link">Berita</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#maps" class="navbar-link">Peta</a>
+            </li>
+            <li class="navbar-item">
+              <a href="education.html" class="navbar-link">Edukasi</a>
+            </li>
+            <li class="navbar-item">
+              <a href="calculator.html" class="navbar-link">Kalkulator Stunting</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+
+    <section class="hero-container">
+      <div class="hero-content">
+        <div class="hero-content-left">
+          <h3 class="title">"Peduli Stunting, <span>Bangkitkan</span> Kesehatan Generasi <span>Indonesia</span>"</h3>
+
+          <div class="hero-navigation">
+            <a href="calculator.html" class="hero-link">Cek kondisi Anak</a>
+          </div>
+        </div>
+        <div class="hero-content-right">
+          <div class="image-container">
+            <img src="./assets/images/home/hero-image.jpg" alt="" class="hero-image" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+
+    <section class="news-container" id="news">
+      <div class="news-header">
+        <h3 class="title">Berita Terkait</h3>
+      </div>
+      <div class="news-body">
+        <div class="news-body-content">
+          <a href="" class="news-card">
+            <div class="news-card-header">
+              <img src="./assets/images/news/news-one.jpeg" alt="" class="news-image" />
+            </div>
+            <div class="news-card-body">
+              <h4 class="title">Lewat Aplikasi Elsimil, BKKBN Edukasi Remaja untuk Cegah Stunting</h4>
+              <p class="desc">
+                Badan Kependudukan dan Keluarga Berencana Nasional (BKKBN) telah menciptakan aplikasi bernama Elsimil, yang dapat diunduh melalui Playstore, sebagai terobosan teknologi untuk mencegah stunting pada bayi yang baru lahir.
+                Aplikasi ini ditujukan kepada calon pengantin dan remaja agar mereka memahami pentingnya pencegahan stunting. Stunting adalah kondisi gagal pertumbuhan dan perkembangan pada anak-anak akibat kurangnya asupan gizi, infeksi
+                berulang, dan stimulasi psikososial yang tidak memadai, terutama pada 1.000 Hari Pertama Kehidupan (HPK). Meskipun prevalensi stunting di Indonesia telah turun menjadi 24,4 persen pada tahun 2021 dari 37 persen pada tahun
+                2013 dan 27,67 persen pada tahun 2019, angka tersebut masih di atas ambang batas yang direkomendasikan oleh Badan Kesehatan Dunia (WHO), yaitu prevalensi stunting di bawah 20 persen.
+              </p>
+            </div>
+          </a>
+          <a href="" class="news-card">
+            <div class="news-card-header">
+              <img src="./assets/images/news/news-two.jpeg" alt="" class="news-image" />
+            </div>
+            <div class="news-card-body">
+              <h4 class="title">Kasus Stunting pada Anak di Indonesia Masih Tinggi, Dokter Ingatkan Pentingnya Deteksi Dini</h4>
+              <p class="desc">
+                Stunting masih menjadi permasalahan serius di Indonesia, dengan prevalensi sekitar 24,4 persen menurut Studi Status Gizi Indonesia (SSGI) tahun 2021, yang melebihi rekomendasi WHO yang menetapkan batas di bawah 20 persen.
+                Stunting terjadi akibat kurangnya asupan gizi, infeksi kronis, dan stimulasi psikososial yang tidak memadai pada 1.000 hari pertama kehidupan. Dr. Madarina Julia, Spesialis Anak Konsultan Endokrinologi Anak, menjelaskan
+                bahwa anak-anak yang mengalami stunting memiliki riwayat gizi dan kesehatan yang buruk, serta berisiko mengalami gangguan perkembangan. Oleh karena itu, upaya pencegahan stunting perlu melibatkan peran orangtua dalam
+                memahami risiko stunting pada anak dan pentingnya pemantauan tumbuh kembang secara dini.
+              </p>
+            </div>
+          </a>
+          <a href="" class="news-card">
+            <div class="news-card-header">
+              <img src="./assets/images/news/news-three.jpeg" alt="" class="news-image" />
+            </div>
+            <div class="news-card-body">
+              <h4 class="title">Kasus Stunting Terbanyak, Indonesia Tempati Urutan Keempat Dunia</h4>
+              <p class="desc">
+                Indonesia masih menghadapi tantangan serius dalam kasus stunting, menduduki peringkat keempat di dunia dan kedua di Asia Tenggara. Pada tahun 2019, jumlah kasus stunting di Indonesia mencapai 27,67 persen, meskipun berhasil
+                menurun dari 37,8 persen pada tahun 2013. Angka ini masih melampaui batas maksimal yang direkomendasikan oleh WHO, yaitu kurang dari 20 persen. Presiden Joko Widodo menargetkan penurunan kasus stunting menjadi 14 persen dan
+                angka kematian ibu di bawah 183 kasus per 100.000 ibu pada tahun 2024. Untuk mengatasi masalah ini, dibutuhkan penanganan intensif dan kolaboratif. Program edukasi, intervensi gizi, dan pemantauan yang terganggu oleh pandemi
+                menjadi faktor yang perlu diperhatikan. Kolaborasi antara BKKBN, Prenagen, dan Klikdokter telah dilakukan dengan tujuan memberikan edukasi yang luas kepada masyarakat dalam penurunan angka stunting. Sinergi semua pihak
+                menjadi kunci dalam menekan kasus stunting di Indonesia dari hulu ke hilir.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="news-footer">
+        <a href="news.html" class="more-button">Baca Selengkapnya</a>
+      </div>
+    </section>
+
+    <!-- Maps Section -->
+
+    <section class="maps-container" id="maps">
+      <div class="maps-header">
+        <h4 class="title">Peta Sebaran <span>Pulau Jawa</span></h4>
+      </div>
+      <div class="maps-body">
+        <svg id="map"></svg>
+
+        <div class="maps-info-card" id="maps-info-card">
+          <h4 class="location" id="province">Propinsi:</h4>
+          <h4 class="location" id="city">Kota:</h4>
+          <p class="info" id="info">Jumlah kasus Stunting:</p>
+          <p class="year">Data 2022</p>
+        </div>
+
+        <div class="range-info-card">
+          <div class="range-info-item">
+            <div class="range-info-color"></div>
+            <p class="range">0 - 20</p>
+          </div>
+          <div class="range-info-item">
+            <div class="range-info-color"></div>
+            <p class="range">20 - 30</p>
+          </div>
+          <div class="range-info-item">
+            <div class="range-info-color"></div>
+            <p class="range">Lebih dari 30</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chart-container">
+      <div class="chart-content">
+        <div class="pie-chart-container">
+          <canvas id="pie-chart"></canvas>
+        </div>
+        <div class="bar-chart-container">
+          <canvas id="bar-chart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-container">
+      <p class="info">
+        <q
+          >Kasus stunting di Indonesia, khususnya di enam provinsi di Pulau Jawa seperti Banten, DKI Jakarta, DIY Yogyakarta, Jawa Barat, dan Jawa Tengah, menjadi suatu perhatian yang memprihatinkan. Stunting, kondisi gagal tumbuh yang
+          dialami oleh anak-anak, memiliki dampak jangka panjang yang serius terhadap pertumbuhan dan perkembangan mereka. Meskipun pemerintah telah mengambil langkah-langkah untuk mengatasi masalah ini, seperti program pencegahan dan
+          edukasi, upaya-upaya ini perlu ditingkatkan. Penanganan stunting harus menjadi prioritas nasional dengan menggandeng sektor kesehatan, pendidikan, dan sosial guna menciptakan strategi yang komprehensif dan terkoordinasi. Dengan
+          upaya yang berkelanjutan, diharapkan Indonesia dapat mengatasi masalah stunting dan memberikan masa depan yang lebih baik bagi anak-anaknya.</q
+        >
+      </p>
+    </section>
+
+    <footer class="footer-container">
+      <div class="footer-content">
+        <div class="footer-item">
+          <a href="index.html" class="footer-link">Beranda</a>
+        </div>
+        <div class="footer-item">
+          <a href="" class="footer-link">Berita</a>
+        </div>
+        <div class="footer-item">
+          <a href="index.html#maps" class="footer-link">Peta</a>
+        </div>
+        <div class="footer-item">
+          <a href="education.html" class="footer-link">Edukasi</a>
+        </div>
+      </div>
+      <div class="copyright">
+        <p class="copyright-text">Created by <span>PEGANG</span></p>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Section -->
+
+    <div class="mobile-menu-container">
+      <div class="mobile-menu-list">
+        <div class="mobile-menu-item">
+          <a href="#" class="mobile-menu-link active">
+            <i class="fa-regular fa-house icon"></i>
+            <p class="link">Beranda</p>
+          </a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="#maps" class="mobile-menu-link">
+            <i class="fa-regular fa-map icon"></i>
+            <p class="link">Peta</p>
+          </a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="news.html" class="mobile-menu-link">
+            <i class="fa-regular fa-newspaper icon"></i>
+            <p class="link">Berita</p>
+          </a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="education.html" class="mobile-menu-link">
+            <i class="fa-regular fa-books icon"></i>
+            <p class="link">Edukasi</p>
+          </a>
+        </div>
+        <div class="mobile-menu-item">
+          <a href="calculator.html" class="mobile-menu-link">
+            <i class="fa-regular fa-calculator icon"></i>
+            <p class="link">Kalkulator</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top -->
+
+    <div class="scroll-top-container" id="scroll-top-container">
+      <button type="button" class="scroll-button" id="scroll-button">
+        <i class="fa-solid fa-arrow-up icon"></i>
+      </button>
+    </div>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JS -->
+    <script src="./assets/utils/js/script.js"></script>
+    <script src="./assets/utils/js/index.js"></script>
+
+    <script>
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      let centered;
+
+      var ipm = d3.map();
+
+      var averageIPM = 0;
+
+      var color = d3.scaleThreshold().domain(d3.range(2, 4)).range(d3.schemeReds[3]);
+
+      const projection = d3.geoEquirectangular().scale(8000).rotate([-108.8, 6]);
+
+      var path = d3.geoPath().projection(projection);
+
+      var svg = d3.select('#map').attr('width', width).attr('height', height);
+
+      svg.append('rect').attr('class', 'background').attr('width', width).attr('height', height).on('click', clicked);
+
+      var g = svg.append('g');
+
+      var x = d3.scaleLinear().domain([1, 4]).rangeRound([300, 760]);
+
+      g.selectAll('rect')
+        .data(
+          color.range().map(function (d) {
+            d = color.invertExtent(d);
+            if (d[0] == null) d[0] = x.domain()[0];
+            if (d[1] == null) d[1] = x.domain()[1];
+            return d;
+          })
+        )
+        .enter()
+        .append('rect')
+        .attr('height', 8)
+        .attr('x', function (d) {
+          return x(d[0]);
+        })
+        .attr('width', function (d) {
+          return x(d[1]) - x(d[0]);
+        })
+        .attr('fill', function (d) {
+          return color(d[0]);
+        });
+
+      g.call(
+        d3
+          .axisBottom(x)
+          .tickSize(13)
+          .tickFormat(function (x, i) {
+            return x + '0';
+          })
+          .tickValues(color.domain())
+      )
+        .select('.domain')
+        .remove();
+      //*
+
+      d3.queue()
+        .defer(d3.json, './assets/utils/json/indonesia-topojson-city-regency.json')
+        .defer(d3.csv, './assets/documents/ipm.csv', function (d) {
+          ipm.set(d.nama_kabkota, Number(d.ipm / 10));
+        })
+        .await(ready);
+
+      function ready(error, data) {
+        if (error) throw error;
+
+        // Calculate Average IPM
+        ipm.each(function (d) {
+          averageIPM += Number(d) * 4;
+          // console.log(averageIPM.toPrecision(4))
+        });
+
+        averageIPM = (averageIPM / ipm.size()).toPrecision(4);
+
+        document.getElementById('info').innerHTML = 'Jumlah kasus Stunting: ' + averageIPM;
+
+        g.append('g')
+          .attr('id', 'subunits')
+          .selectAll('path')
+          .data(topojson.feature(data, data.objects.IDN_adm_2_kabkota).features)
+          .enter()
+          .append('path')
+          .attr('fill', function (d) {
+            var key = d.properties.NAME_2;
+            key = d.properties.VARNAME_2 ? d.properties.VARNAME_2 : key;
+            if (!ipm.get(key)) key = d.properties.NAME_2;
+            return color((d.ipm = ipm.get(key)));
+          })
+          .attr('d', path)
+          .text(function (d) {
+            return d.ipm + '%';
+          })
+          .on('click', clicked);
+
+        g.append('path')
+          .datum(
+            topojson.mesh(data, data.objects.IDN_adm_2_kabkota, function (a, b) {
+              return a !== b;
+            })
+          )
+          .attr('id', 'state-borders')
+          .attr('d', path);
+        // 18.83675025%
+        // 71.99 kuningan
+      }
+
+      function provinceName(region) {
+        return region.properties.NAME_1;
+      }
+
+      function cityName(region) {
+        return region.properties.NAME_2;
+      }
+
+      function getHDI(region) {
+        let key = region.properties.NAME_2;
+
+        if (ipm.get(key)) return (ipm.get(key) * 10).toPrecision(4);
+        key = region.properties.VARNAME_2;
+        if (ipm.get(key)) return (ipm.get(key) * 7).toPrecision(4);
+
+        return 'no data';
+      }
+
+      const mapsInfoEl = document.getElementById('maps-info-card');
+
+      function clicked(d) {
+        let x;
+        let y;
+        let k;
+
+        if (d) {
+          document.getElementById('province').innerHTML = `Propinsi: ${provinceName(d)}`;
+          document.getElementById('city').innerHTML = `Kota: ${cityName(d)}`;
+          document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${getHDI(d)}`;
+
+          mapsInfoEl.classList.add('show');
+
+          // window.scrollTo({
+          //     top: 1160,
+          // });
+
+          // console.log(d)
+        } else {
+          document.getElementById('province').innerHTML = 'Propinsi: ';
+          document.getElementById('city').innerHTML = 'Kota: ';
+          document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${averageIPM}`;
+
+          mapsInfoEl.classList.remove('show');
+
+          // window.scrollTo({
+          //     top: 1160,
+          // });
+        }
+
+        if (d && centered !== d) {
+          const centroid = path.centroid(d);
+
+          x = centroid[0];
+          y = centroid[1];
+          k = 4;
+          centered = d;
+        } else {
+          x = width / 2;
+          y = height / 2;
+          k = 1;
+          centered = null;
+        }
+
+        g.selectAll('path').classed(
+          'active',
+          centered &&
+            function (d) {
+              return d === centered;
+            }
+        );
+
+        g.transition()
+          .duration(750)
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
+          .style('stroke-width', 1.5 / k + 'px');
+
+        if (k == 1) {
+          mapsInfoEl.classList.remove('show');
+        } else {
+          mapsInfoEl.classList.add('show');
+        }
+
+        mapsInfoEl.style.top = `${k}px`;
+        mapsInfoEl.style.right = `${k}px`;
+      }
+
+      const pieChartEl = document.getElementById('pie-chart');
+      const barChartEl = document.getElementById('bar-chart');
+
+      new Chart(pieChartEl, {
+        type: 'pie',
+        data: {
+          labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', ' Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
+          datasets: [
+            {
+              data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
+            },
+          ],
+        },
+      });
+
+      new Chart(barChartEl, {
+        type: 'bar',
+        data: {
+          labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', ' Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
+          datasets: [
+            {
+              label: 'test',
+              data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
+              backgroundColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
+              borderColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+    <!-- Font Awesome 6 Icon -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/utils/css/style.css">
+    <link rel="stylesheet" href="./assets/utils/css/calculator.css">
+
+    <title>Peduli Cegah Stunting</title>
+
+</head>
+<body>
+
+    <nav class="navbar-container" id="navbar-container">
+        <div class="navbar-content">
+            <div class="navbar-content-left">
+                <a href="index.html" class="navbar-logo">
+                    <img src="./assets/images/logo/logo.png" alt="" class="logo-image">
+                </a>
+            </div>
+            <div class="navbar-content-right">
+                <ul class="navbar-list">
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link">Beranda</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="news.html" class="navbar-link">Berita</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="#maps" class="navbar-link">Peta</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="education.html" class="navbar-link">Edukasi</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="calculator.html" class="navbar-link active">Kalkulator Stunting</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h3 class="title">Perhitungan Kembang Anak</h3>
+        </div>
+        <div class="calculator-body">
+            <form action="" class="form-container">
+                <div class="form-content">
+                    <label for="" class="form-label">Usia Anak</label>
+                    <input type="number" placeholder="Usia dalam tahun" class="form-input" id="age">
+                </div>
+                <div class="form-content">
+                    <label for="" class="form-label">Berat Badan (kg)</label>
+                    <input type="number" placeholder="Berat badan anak" class="form-input" id="weight">
+                </div>
+                <div class="form-content">
+                    <label for="" class="form-label">Tinggi Badan (cm)</label>
+                    <input type="number" placeholder="Tinggi badan anak" class="form-input" id="height">
+                </div>
+                <div class="form-content">
+                    <label for="" class="form-label">Lingkar Kepala (cm)</label>
+                    <input type="number" placeholder="Ukuran lingkar kepala" class="form-input" id="lingkar">
+                </div>
+                <div class="form-content">
+                    <button type="button" class="submit-button" onclick="hitung()">Hitung</button>
+                    <button type="reset" class="reset-button">Reset</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="alert-container" id="alert-container">
+            <p class="info" id="info"></p>
+        </div>
+    </div>
+
+
+
+    <!-- Mobile Menu Section -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-list">
+            <div class="mobile-menu-item">
+                <a href="index.html" class="mobile-menu-link">
+                    <i class="fa-regular fa-house icon"></i>
+                    <p class="link">Beranda</p>
+                </a>
+            </div>
+            <div class="mobile-menu-item">
+                <a href="index.html#maps" class="mobile-menu-link">
+                    <i class="fa-regular fa-map icon"></i>
+                    <p class="link">Peta</p>
+                </a>
+            </div>
+            <div class="mobile-menu-item">
+                <a href="news.html" class="mobile-menu-link">
+                    <i class="fa-regular fa-newspaper icon"></i>
+                    <p class="link">Berita</p>
+                </a>
+            </div>
+            <div class="mobile-menu-item">
+                <a href="education.html" class="mobile-menu-link">
+                    <i class="fa-regular fa-books icon"></i>
+                    <p class="link">Edukasi</p>
+                </a>
+            </div>
+            <div class="mobile-menu-item">
+                <a href="calculator.html" class="mobile-menu-link active">
+                    <i class="fa-regular fa-calculator icon"></i>
+                    <p class="link">Kalkulator</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="footer-item">
+                <a href="index.html" class="footer-link">Beranda</a>
+            </div>
+            <div class="footer-item">
+                <a href="news.html" class="footer-link">Berita</a>
+            </div>
+            <div class="footer-item">
+                <a href="index.html#maps" class="footer-link">Peta</a>
+            </div>
+            <div class="footer-item">
+                <a href="education.html" class="footer-link">Edukasi</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="copyright-text">Created by <span>PEGANG</span></p>
+        </div>
+    </footer>
+
+
+
+    <!-- Custom JS -->
+    <script src="./assets/utils/js/script.js"></script>
+    <script src="./assets/utils/js/calculator.js"></script>
+
+</body>
+</html>
