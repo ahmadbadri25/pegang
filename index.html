@@ -260,241 +260,252 @@
     <script src="./assets/utils/js/index.js"></script>
 
     <script>
+      // Mendapatkan lebar dan tinggi jendela browser
       const width = window.innerWidth;
       const height = window.innerHeight;
       let centered;
-
+  
+      // Membuat objek map untuk menyimpan data IPM (Indeks Pembangunan Manusia)
       var ipm = d3.map();
-
+  
+      // Mendefinisikan variabel untuk menyimpan rata-rata IPM
       var averageIPM = 0;
-
+  
+      // Mendefinisikan skala warna dengan rentang nilai IPM
       var color = d3.scaleThreshold().domain(d3.range(2, 4)).range(d3.schemeReds[3]);
-
+  
+      // Mendefinisikan proyeksi peta menggunakan proyeksi Equirectangular
       const projection = d3.geoEquirectangular().scale(8000).rotate([-108.8, 6]);
-
+  
+      // Mendefinisikan path generator dengan menggunakan proyeksi yang telah didefinisikan
       var path = d3.geoPath().projection(projection);
-
+  
+      // Membuat elemen SVG untuk peta
       var svg = d3.select('#map').attr('width', width).attr('height', height);
-
+  
+      // Menambahkan elemen latar belakang untuk menangani event klik
       svg.append('rect').attr('class', 'background').attr('width', width).attr('height', height).on('click', clicked);
-
+  
+      // Membuat grup elemen g
       var g = svg.append('g');
-
+  
+      // Mendefinisikan skala linear untuk sumbu x
       var x = d3.scaleLinear().domain([1, 4]).rangeRound([300, 760]);
-
+  
+      // Menambahkan kotak warna (legend) untuk menunjukkan rentang nilai IPM
       g.selectAll('rect')
-        .data(
-          color.range().map(function (d) {
-            d = color.invertExtent(d);
-            if (d[0] == null) d[0] = x.domain()[0];
-            if (d[1] == null) d[1] = x.domain()[1];
-            return d;
-          })
-        )
-        .enter()
-        .append('rect')
-        .attr('height', 8)
-        .attr('x', function (d) {
-          return x(d[0]);
-        })
-        .attr('width', function (d) {
-          return x(d[1]) - x(d[0]);
-        })
-        .attr('fill', function (d) {
-          return color(d[0]);
-        });
-
-      g.call(
-        d3
-          .axisBottom(x)
-          .tickSize(13)
-          .tickFormat(function (x, i) {
-            return x + '0';
-          })
-          .tickValues(color.domain())
-      )
-        .select('.domain')
-        .remove();
-      //*
-
-      d3.queue()
-        .defer(d3.json, './assets/utils/json/indonesia-topojson-city-regency.json')
-        .defer(d3.csv, './assets/documents/ipm.csv', function (d) {
-          ipm.set(d.nama_kabkota, Number(d.ipm / 10));
-        })
-        .await(ready);
-
-      function ready(error, data) {
-        if (error) throw error;
-
-        // Calculate Average IPM
-        ipm.each(function (d) {
-          averageIPM += Number(d) * 4;
-          // console.log(averageIPM.toPrecision(4))
-        });
-
-        averageIPM = (averageIPM / ipm.size()).toPrecision(4);
-
-        document.getElementById('info').innerHTML = 'Jumlah kasus Stunting: ' + averageIPM;
-
-        g.append('g')
-          .attr('id', 'subunits')
-          .selectAll('path')
-          .data(topojson.feature(data, data.objects.IDN_adm_2_kabkota).features)
-          .enter()
-          .append('path')
-          .attr('fill', function (d) {
-            var key = d.properties.NAME_2;
-            key = d.properties.VARNAME_2 ? d.properties.VARNAME_2 : key;
-            if (!ipm.get(key)) key = d.properties.NAME_2;
-            return color((d.ipm = ipm.get(key)));
-          })
-          .attr('d', path)
-          .text(function (d) {
-            return d.ipm + '%';
-          })
-          .on('click', clicked);
-
-        g.append('path')
-          .datum(
-            topojson.mesh(data, data.objects.IDN_adm_2_kabkota, function (a, b) {
-              return a !== b;
-            })
+          .data(
+              color.range().map(function (d) {
+                  d = color.invertExtent(d);
+                  if (d[0] == null) d[0] = x.domain()[0];
+                  if (d[1] == null) d[1] = x.domain()[1];
+                  return d;
+              })
           )
-          .attr('id', 'state-borders')
-          .attr('d', path);
-        // 18.83675025%
-        // 71.99 kuningan
+          .enter()
+          .append('rect')
+          .attr('height', 8)
+          .attr('x', function (d) {
+              return x(d[0]);
+          })
+          .attr('width', function (d) {
+              return x(d[1]) - x(d[0]);
+          })
+          .attr('fill', function (d) {
+              return color(d[0]);
+          });
+  
+      // Menambahkan sumbu x untuk legend
+      g.call(
+          d3
+              .axisBottom(x)
+              .tickSize(13)
+              .tickFormat(function (x, i) {
+                  return x + '0';
+              })
+              .tickValues(color.domain())
+      )
+          .select('.domain')
+          .remove();
+  
+      // Memuat data peta dan data IPM
+      d3.queue()
+          .defer(d3.json, './assets/utils/json/indonesia-topojson-city-regency.json')
+          .defer(d3.csv, './assets/documents/ipm.csv', function (d) {
+              ipm.set(d.nama_kabkota, Number(d.ipm / 10));
+          })
+          .await(ready);
+  
+      // Fungsi yang dipanggil setelah data berhasil dimuat
+      function ready(error, data) {
+          if (error) throw error;
+  
+          // Menghitung rata-rata IPM
+          ipm.each(function (d) {
+              averageIPM += Number(d) * 4;
+          });
+          averageIPM = (averageIPM / ipm.size()).toPrecision(4);
+  
+          // Menampilkan rata-rata IPM pada elemen dengan id 'info'
+          document.getElementById('info').innerHTML = 'Jumlah kasus Stunting: ' + averageIPM;
+  
+          // Menambahkan path untuk setiap kabupaten/kota di peta
+          g.append('g')
+              .attr('id', 'subunits')
+              .selectAll('path')
+              .data(topojson.feature(data, data.objects.IDN_adm_2_kabkota).features)
+              .enter()
+              .append('path')
+              .attr('fill', function (d) {
+                  var key = d.properties.NAME_2;
+                  key = d.properties.VARNAME_2 ? d.properties.VARNAME_2 : key;
+                  if (!ipm.get(key)) key = d.properties.NAME_2;
+                  return color((d.ipm = ipm.get(key)));
+              })
+              .attr('d', path)
+              .text(function (d) {
+                  return d.ipm + '%';
+              })
+              .on('click', clicked);
+  
+          // Menambahkan path untuk batas-batas antar kabupaten/kota
+          g.append('path')
+              .datum(
+                  topojson.mesh(data, data.objects.IDN_adm_2_kabkota, function (a, b) {
+                      return a !== b;
+                  })
+              )
+              .attr('id', 'state-borders')
+              .attr('d', path);
       }
-
+  
+      // Fungsi untuk mendapatkan nama provinsi dari objek region
       function provinceName(region) {
-        return region.properties.NAME_1;
+          return region.properties.NAME_1;
       }
-
+  
+      // Fungsi untuk mendapatkan nama kota dari objek region
       function cityName(region) {
-        return region.properties.NAME_2;
+          return region.properties.NAME_2;
       }
-
+  
+      // Fungsi untuk mendapatkan nilai IPM dari objek region
       function getHDI(region) {
-        let key = region.properties.NAME_2;
-
-        if (ipm.get(key)) return (ipm.get(key) * 10).toPrecision(4);
-        key = region.properties.VARNAME_2;
-        if (ipm.get(key)) return (ipm.get(key) * 7).toPrecision(4);
-
-        return 'no data';
+          let key = region.properties.NAME_2;
+  
+          if (ipm.get(key)) return (ipm.get(key) * 10).toPrecision(4);
+          key = region.properties.VARNAME_2;
+          if (ipm.get(key)) return (ipm.get(key) * 7).toPrecision(4);
+  
+          return 'no data';
       }
-
+  
+      // Mendapatkan elemen dengan id 'maps-info-card'
       const mapsInfoEl = document.getElementById('maps-info-card');
-
+  
+      // Fungsi yang dipanggil saat peta diklik
       function clicked(d) {
-        let x;
-        let y;
-        let k;
-
-        if (d) {
-          document.getElementById('province').innerHTML = `Propinsi: ${provinceName(d)}`;
-          document.getElementById('city').innerHTML = `Kota: ${cityName(d)}`;
-          document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${getHDI(d)}`;
-
-          mapsInfoEl.classList.add('show');
-
-          // window.scrollTo({
-          //     top: 1160,
-          // });
-
-          // console.log(d)
-        } else {
-          document.getElementById('province').innerHTML = 'Propinsi: ';
-          document.getElementById('city').innerHTML = 'Kota: ';
-          document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${averageIPM}`;
-
-          mapsInfoEl.classList.remove('show');
-
-          // window.scrollTo({
-          //     top: 1160,
-          // });
-        }
-
-        if (d && centered !== d) {
-          const centroid = path.centroid(d);
-
-          x = centroid[0];
-          y = centroid[1];
-          k = 4;
-          centered = d;
-        } else {
-          x = width / 2;
-          y = height / 2;
-          k = 1;
-          centered = null;
-        }
-
-        g.selectAll('path').classed(
-          'active',
-          centered &&
-            function (d) {
-              return d === centered;
-            }
-        );
-
-        g.transition()
-          .duration(750)
-          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
-          .style('stroke-width', 1.5 / k + 'px');
-
-        if (k == 1) {
-          mapsInfoEl.classList.remove('show');
-        } else {
-          mapsInfoEl.classList.add('show');
-        }
-
-        mapsInfoEl.style.top = `${k}px`;
-        mapsInfoEl.style.right = `${k}px`;
+          let x;
+          let y;
+          let k;
+  
+          if (d) {
+              document.getElementById('province').innerHTML = `Propinsi: ${provinceName(d)}`;
+              document.getElementById('city').innerHTML = `Kota: ${cityName(d)}`;
+              document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${getHDI(d)}`;
+  
+              mapsInfoEl.classList.add('show');
+          } else {
+              document.getElementById('province').innerHTML = 'Propinsi: ';
+              document.getElementById('city').innerHTML = 'Kota: ';
+              document.getElementById('info').innerHTML = `Jumlah kasus Stunting: ${averageIPM}`;
+  
+              mapsInfoEl.classList.remove('show');
+          }
+  
+          if (d && centered !== d) {
+              const centroid = path.centroid(d);
+  
+              x = centroid[0];
+              y = centroid[1];
+              k = 4;
+              centered = d;
+          } else {
+              x = width / 2;
+              y = height / 2;
+              k = 1;
+              centered = null;
+          }
+  
+          g.selectAll('path').classed(
+              'active',
+              centered &&
+              function (d) {
+                  return d === centered;
+              }
+          );
+  
+          g.transition()
+              .duration(750)
+              .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
+              .style('stroke-width', 1.5 / k + 'px');
+  
+          if (k == 1) {
+              mapsInfoEl.classList.remove('show');
+          } else {
+              mapsInfoEl.classList.add('show');
+          }
+  
+          mapsInfoEl.style.top = `${k}px`;
+          mapsInfoEl.style.right = `${k}px`;
       }
-
+  
+      // Mendapatkan elemen dengan id 'pie-chart' dan 'bar-chart'
       const pieChartEl = document.getElementById('pie-chart');
       const barChartEl = document.getElementById('bar-chart');
-
+  
+      // Membuat chart jenis pie
       new Chart(pieChartEl, {
-        type: 'pie',
-        data: {
-          labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', ' Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
-          datasets: [
-            {
-              data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
-            },
-          ],
-        },
+          type: 'pie',
+          data: {
+              labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
+              datasets: [
+                  {
+                      data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
+                  },
+              ],
+          },
       });
-
+  
+      // Membuat chart jenis bar
       new Chart(barChartEl, {
-        type: 'bar',
-        data: {
-          labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', ' Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
-          datasets: [
-            {
-              label: 'test',
-              data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
-              backgroundColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
-              borderColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+          type: 'bar',
+          data: {
+              labels: ['Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'Jawa Timur', 'DI Yogyakarta'],
+              datasets: [
+                  {
+                      label: 'test',
+                      data: [20.0, 14.8, 20.2, 20.8, 19.5, 16.4],
+                      backgroundColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
+                      borderColor: ['rgb(25,158,247)', 'rgb(255,99,132)', 'rgb(255,159,64)', 'rgb(255,205,86)', 'rgb(54, 162, 235)', 'rgb(153,102,255)'],
+                      borderWidth: 1,
+                  },
+              ],
           },
-          plugins: {
-            legend: {
-              display: false,
-            },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                  },
+              },
+              plugins: {
+                  legend: {
+                      display: false,
+                  },
+              },
           },
-        },
       });
-    </script>
+  </script>
+  
   </body>
 </html>
